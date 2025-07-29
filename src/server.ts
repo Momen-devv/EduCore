@@ -1,13 +1,15 @@
 import app from './app';
-import mongoose from 'mongoose';
 import configKeys from './config';
+import { connectMongo } from './DB/mongo';
+import { connectRedis } from './DB/redis';
 
-const PORT = process.env.PORT || 3000;
+const PORT = configKeys.PORT;
 
-mongoose
-  .connect(configKeys.MONGO_DB_URL!)
-  .then(() => {
-    console.log('MongoDB connected');
-    app.listen(PORT, () => console.log(`Server on port ${PORT}`));
-  })
-  .catch((err) => console.error(err));
+(async () => {
+  await connectMongo();
+  await connectRedis();
+
+  app.listen(PORT, () => {
+    console.log(`🚀 Server is running at http://localhost:${PORT}`);
+  });
+})();

@@ -1,11 +1,12 @@
-import express, { Request, Response } from 'express';
+import express, { Application, NextFunction } from 'express';
+import AppError from './utils/appError';
 
-const app = express();
+const app: Application = express();
 
 app.use(express.json());
 
-app.get('/', (req: Request, res: Response) => {
-  res.send({ message: 'Hello!!' });
+app.get('*', (req, res, next: NextFunction) => {
+  next(new AppError('Not found', 404));
 });
 
 export default app;
