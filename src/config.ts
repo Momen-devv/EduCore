@@ -6,6 +6,8 @@ const configKeys = {
 
   PORT: process.env.PORT,
 
+  NODE_ENV: process.env.NODE_ENV as String,
+
   REDIS_URL: process.env.REDIS_URL as string
 };
 

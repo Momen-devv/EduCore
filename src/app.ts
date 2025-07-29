@@ -2,6 +2,7 @@ import express, { Application, NextFunction } from 'express';
 import AppError from './utils/appError';
 import userRoutes from './routes/user.routes';
 import HttpStatusCodes from './utils/HttpStatusCodes';
+import errorHandler from './middlewares/globalErrorHandler';
 
 const app: Application = express();
 
@@ -13,5 +14,7 @@ app.use('/api/v1/users', userRoutes);
 app.all(/(.*)/, (req, res, next: NextFunction) => {
   next(new AppError('Not found', HttpStatusCodes.NOT_FOUND));
 });
+
+app.use(errorHandler);
 
 export default app;
