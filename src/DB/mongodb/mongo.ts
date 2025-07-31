@@ -1,7 +1,8 @@
 import mongoose from 'mongoose';
-import configKeys from '../config';
+import configKeys from '../../config';
+mongoose.set('strictQuery', true);
 
-export const connectMongo = async () => {
+const connectMongo = async () => {
   try {
     await mongoose.connect(configKeys.MONGO_DB_URL!);
     console.log('✅ MongoDB connected');
@@ -10,3 +11,5 @@ export const connectMongo = async () => {
     process.exit(1);
   }
 };
+
+export default connectMongo;

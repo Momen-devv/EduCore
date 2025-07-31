@@ -1,15 +1,15 @@
-import app from './app';
+import { Server } from 'http';
 import configKeys from './config';
-import { connectMongo } from './DB/mongo';
-import { connectRedis } from './DB/redis';
 
-const PORT = configKeys.PORT;
+const serverConfig = (server: Server) => {
+  const startServer = () => {
+    server.listen(configKeys.PORT, () => {
+      console.log(`✅ Server is running on Port ${configKeys.PORT}`);
+    });
+  };
+  return {
+    startServer
+  };
+};
 
-(async () => {
-  await connectMongo();
-  await connectRedis();
-
-  app.listen(PORT, () => {
-    console.log(`🚀 Server is running at http://localhost:${PORT}`);
-  });
-})();
+export default serverConfig;
