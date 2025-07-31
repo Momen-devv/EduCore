@@ -1,5 +1,11 @@
 import { Schema, Document, model } from 'mongoose';
 
+interface StudentProfileImage {
+  name: string;
+  key?: string;
+  url?: string;
+}
+
 interface IStudent extends Document {
   firstName: string;
   lastName: string;
@@ -13,6 +19,18 @@ interface IStudent extends Document {
   isBlocked: boolean;
   blockedReason: string;
 }
+
+const ProfileSchema = new Schema<StudentProfileImage>({
+  name: {
+    type: String
+  },
+  key: {
+    type: String
+  },
+  url: {
+    type: String
+  }
+});
 
 const studentSchema = new Schema<IStudent>({
   firstName: {
