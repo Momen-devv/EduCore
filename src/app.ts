@@ -1,6 +1,6 @@
 import express, { Application, NextFunction } from 'express';
 import AppError from './utils/appError';
-import userRoutes from './routes/user.routes';
+import studentRoute from './routes/student.routes';
 import HttpStatusCodes from './utils/HttpStatusCodes';
 import errorHandler from './middlewares/globalErrorHandler';
 import morgan from 'morgan';
@@ -12,7 +12,7 @@ if (configKeys.NODE_ENV === 'development') app.use(morgan('dev'));
 
 app.use(express.json());
 
-app.use('/api/v1/users', userRoutes);
+app.use('/api/v1/students', studentRoute);
 
 //* catch 404 and forward to error handler
 app.all(/(.*)/, (req, res, next: NextFunction) => {
