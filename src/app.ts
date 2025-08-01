@@ -8,10 +8,13 @@ import studentRoute from './routes/student.routes';
 import HttpStatusCodes from './utils/HttpStatusCodes';
 import errorHandler from './middlewares/globalErrorHandler';
 import morgan from 'morgan';
+import appLogger from './logging/loggers/appLogger';
 import configKeys from './config';
 
 const app: Application = express();
 const server = http.createServer(app);
+
+appLogger.info('✅ App initialized');
 
 connectToMongoDb();
 
