@@ -1,5 +1,6 @@
 import { createClient } from 'redis';
 import configKeys from '../../config';
+import redisbLogger from '../../logging/loggers/redisLogger';
 
 const connection = () => {
   const createRedisClient = () => {
@@ -7,16 +8,16 @@ const connection = () => {
       url: configKeys.REDIS_URL
     });
     client.on('error', (err) => {
-      console.log('❌ Redis connection error:', err);
+      redisbLogger.error(`❌ Redis connection error: ${err.stack}`);
       process.exit(1);
     });
     client
       .connect()
       .then(() => {
-        console.log('✅ Redis connected');
+        redisbLogger.info('✅ Redis connected');
       })
       .catch((err) => {
-        console.log(err);
+        redisbLogger.error(`❌ Redis connection failure: ${err.stack}`);
       });
     return client;
   };
